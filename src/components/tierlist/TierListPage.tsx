@@ -88,14 +88,16 @@ export default function TierListPage({ monsters, sharedEncoded, maxId }: Props) 
         <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">
           rank.energy
         </h1>
-        <button
-          onClick={() => dispatch({ type: "RESET_ALL" })}
-          disabled={!encodedUrl}
-          className="rounded-full bg-zinc-200 dark:bg-zinc-700 px-4 py-2 text-sm font-medium hover:bg-zinc-300 dark:hover:bg-zinc-600 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-        >
-          {t("resetAll")}
-        </button>
-        <ShareButton shareUrl={encodedUrl} disabled={!encodedUrl} />
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => dispatch({ type: "RESET_ALL" })}
+            disabled={!encodedUrl}
+            className="rounded-full bg-zinc-200 dark:bg-zinc-700 px-4 py-2 text-sm font-medium hover:bg-zinc-300 dark:hover:bg-zinc-600 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          >
+            {t("resetAll")}
+          </button>
+          <ShareButton shareUrl={encodedUrl} disabled={!encodedUrl} />
+        </div>
       </div>
 
       {/* Content */}

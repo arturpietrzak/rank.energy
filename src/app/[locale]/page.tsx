@@ -1,8 +1,8 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 
-export default function HomePage() {
-  const t = useTranslations("HomePage");
+export default async function HomePage() {
+  const t = await getTranslations("HomePage");
 
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 dark:bg-black p-8">
@@ -17,7 +17,7 @@ export default function HomePage() {
           href="/tierlist"
           className="rounded-full bg-foreground px-8 py-3 text-background font-medium hover:opacity-90 transition-opacity"
         >
-          Go to Tier List
+          {t("goToTierList")}
         </Link>
       </main>
     </div>

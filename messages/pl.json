@@ -1,7 +1,8 @@
 {
   "HomePage": {
     "title": "rank.energy",
-    "description": "Oceń swoje ulubione napoje energetyczne"
+    "description": "Oceń swoje ulubione napoje energetyczne",
+    "goToTierList": "Przejdź do rankingu"
   },
   "TierList": {
     "share": "Udostępnij",

@@ -1,19 +1,14 @@
-import { readFileSync } from "fs";
-import { join } from "path";
 import type { MonsterConfig } from "@/types";
+import monstersData from "@/../config/monsters.json";
 import TierListPage from "@/components/tierlist/TierListPage";
+
+const monsters: MonsterConfig[] = monstersData.monsters;
 
 export default async function TierListPageServer({
   searchParams,
 }: {
   searchParams: Promise<{ list?: string }>;
 }) {
-  const raw = readFileSync(
-    join(process.cwd(), "config/monsters.json"),
-    "utf-8"
-  );
-  const { monsters }: { monsters: MonsterConfig[] } = JSON.parse(raw);
-
   const params = await searchParams;
   const sharedEncoded = params.list ?? null;
 

@@ -1,7 +1,8 @@
 {
   "HomePage": {
     "title": "rank.energy",
-    "description": "Rank your favorite energy drinks"
+    "description": "Rank your favorite energy drinks",
+    "goToTierList": "Go to Tier List"
   },
   "TierList": {
     "share": "Share Link",

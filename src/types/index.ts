@@ -4,10 +4,6 @@ export interface MonsterConfig {
   imageDetail?: string;
 }
 
-export interface MonsterData {
-  monsters: MonsterConfig[];
-}
-
 export type TierSlug =
   | 'viking-berry'
   | 's'

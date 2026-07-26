@@ -57,7 +57,7 @@ export default function DesktopTierList({
   /* ---- Read-only render ---- */
   if (readOnly) {
     return (
-      <div className="flex flex-col gap-3 overflow-y-auto flex-1">
+      <div className="flex flex-col gap-2 overflow-y-auto flex-1">
         {TIERS.map((tier) => {
           const ids = tiers[tier.slug] ?? [];
           const tierMonsters = ids

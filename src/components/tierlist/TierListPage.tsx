@@ -87,7 +87,10 @@ export default function TierListPage({
           </div>
         </header>
 
-        <div className="flex-1 overflow-auto p-4 sm:p-6 cf-texture">
+        {/* Divider */}
+        <hr className="divider-glow" />
+
+        <div className="flex-1 p-4 sm:p-6 cf-texture min-h-0">
           <DesktopTierList
             tiers={state.tiers}
             monsters={monsterMap}

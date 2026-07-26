@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import {
   DndContext,
   DragOverlay,
@@ -286,11 +287,36 @@ function ReadOnlyRow({
 function ReadOnlyImage({ monster }: { monster: MonsterConfig }) {
   const t = useTranslations("Monsters");
   const name = t(`${monster.id}.name`);
+  const cardRef = useRef<HTMLDivElement | null>(null);
+  const [tooltipStyle, setTooltipStyle] = useState<React.CSSProperties>({});
+  const [showTooltip, setShowTooltip] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => { setMounted(true); }, []);
+
+  const updateTooltip = useCallback(() => {
+    const rect = cardRef.current?.getBoundingClientRect();
+    if (rect) {
+      setTooltipStyle({
+        position: "fixed",
+        left: rect.left + rect.width / 2,
+        top: rect.top - 4,
+        transform: "translate(-50%, -100%)",
+      });
+    }
+  }, []);
 
   return (
-    <div className="relative group">
-      <div className="w-11 h-11 sm:w-16 sm:h-16 bg-bg-overlay border border-border-subtle flex-shrink-0 flex items-center justify-center overflow-hidden"
-        style={{ clipPath: "polygon(3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%, 0 3px)" }}>
+    <div
+      className="relative group"
+      onMouseEnter={() => { updateTooltip(); setShowTooltip(true); }}
+      onMouseLeave={() => setShowTooltip(false)}
+    >
+      <div
+        ref={cardRef}
+        className="w-11 h-11 sm:w-16 sm:h-16 bg-bg-overlay border border-border-subtle flex-shrink-0 flex items-center justify-center overflow-hidden"
+        style={{ clipPath: "polygon(3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%, 0 3px)" }}
+      >
         {monster.image ? (
           <img
             src={monster.image}
@@ -301,11 +327,18 @@ function ReadOnlyImage({ monster }: { monster: MonsterConfig }) {
           <span className="text-sm sm:text-lg text-text-muted">?</span>
         )}
       </div>
-      {/* Tooltip */}
-      <div className="absolute -top-9 left-1/2 -translate-x-1/2 bg-bg-overlay border border-border-default text-text-primary text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50"
-        style={{ clipPath: "polygon(2px 0, 100% 0, 100% calc(100% - 2px), calc(100% - 2px) 100%, 0 100%, 0 2px)" }}>
-        {name}
-      </div>
+
+      {mounted && showTooltip &&
+        createPortal(
+          <div
+            style={tooltipStyle}
+            className="bg-bg-overlay border border-border-default text-text-primary text-xs px-2 py-1 pointer-events-none whitespace-nowrap z-[9999]"
+          >
+            {name}
+          </div>,
+          document.body,
+        )
+      }
     </div>
   );
 }

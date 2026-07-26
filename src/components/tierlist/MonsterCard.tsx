@@ -1,5 +1,7 @@
 "use client";
 
+import { useState, useCallback, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useTranslations } from "next-intl";
@@ -13,6 +15,24 @@ interface Props {
 export default function MonsterCard({ monster, isDragOverlay }: Props) {
   const t = useTranslations("Monsters");
   const name = t(`${monster.id}.name`);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [tooltipStyle, setTooltipStyle] = useState<React.CSSProperties>({});
+  const [showTooltip, setShowTooltip] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => { setMounted(true); }, []);
+
+  const updateTooltip = useCallback(() => {
+    const rect = cardRef.current?.getBoundingClientRect();
+    if (rect) {
+      setTooltipStyle({
+        position: "fixed",
+        left: rect.left + rect.width / 2,
+        top: rect.top - 4,
+        transform: "translate(-50%, -100%)",
+      });
+    }
+  }, []);
 
   const {
     attributes,
@@ -24,9 +44,16 @@ export default function MonsterCard({ monster, isDragOverlay }: Props) {
   } = useSortable({ id: monster.id });
 
   return (
-    <div className="relative group">
+    <div
+      className="relative group"
+      onMouseEnter={() => { updateTooltip(); setShowTooltip(true); }}
+      onMouseLeave={() => setShowTooltip(false)}
+    >
       <div
-        ref={setNodeRef}
+        ref={(node) => {
+          setNodeRef(node);
+          (cardRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
+        }}
         style={{
           transform: CSS.Transform.toString(transform),
           transition,
@@ -65,15 +92,18 @@ export default function MonsterCard({ monster, isDragOverlay }: Props) {
         )}
       </div>
 
-      {/* Tooltip — only on non-dragging, non-overlay cards */}
-      {!isDragging && !isDragOverlay && (
-        <div
-          className="absolute -top-9 left-1/2 -translate-x-1/2 bg-bg-overlay border border-border-default text-text-primary text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50"
-          style={{ clipPath: "polygon(2px 0, 100% 0, 100% calc(100% - 2px), calc(100% - 2px) 100%, 0 100%, 0 2px)" }}
-        >
-          {name}
-        </div>
-      )}
+      {/* Tooltip via portal — escapes all overflow containers */}
+      {!isDragging && !isDragOverlay && mounted && showTooltip &&
+        createPortal(
+          <div
+            style={tooltipStyle}
+            className="bg-bg-overlay border border-border-default text-text-primary text-xs px-2 py-1 pointer-events-none whitespace-nowrap z-[9999]"
+          >
+            {name}
+          </div>,
+          document.body,
+        )
+      }
     </div>
   );
 }

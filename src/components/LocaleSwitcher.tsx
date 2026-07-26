@@ -1,6 +1,7 @@
 "use client";
 
 import { useLocale } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import { usePathname, Link } from "@/i18n/navigation";
 
 const LOCALES = [
@@ -11,6 +12,9 @@ const LOCALES = [
 export default function LocaleSwitcher() {
   const currentLocale = useLocale();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const search = searchParams.toString();
+  const href = search ? `${pathname}?${search}` : pathname;
 
   return (
     <div className="inline-flex items-center gap-0.5">
@@ -20,7 +24,7 @@ export default function LocaleSwitcher() {
         return (
           <Link
             key={code}
-            href={pathname}
+            href={href}
             locale={code}
             className={`
               text-xs px-2.5 py-1 font-bold uppercase tracking-wider

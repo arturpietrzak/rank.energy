@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useCallback } from "react";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import type { MonsterConfig, TierSlug } from "@/types";
 import { TIERS } from "@/types";
@@ -27,6 +27,7 @@ export default function TierListPage({
 }: Props) {
   const t = useTranslations("TierList");
   const isDesktop = useMediaQuery("(min-width: 768px)");
+  const router = useRouter();
 
   const { state, dispatch, shareUrl } = useTierList(
     monsters,
@@ -62,9 +63,10 @@ export default function TierListPage({
   if (state.isViewOnly) {
     return (
       <div className="flex flex-col flex-1 h-full bg-bg-base">
-        {/* Header */}
-        <header className="flex items-center justify-between px-3 sm:px-6 py-3 sm:py-4 border-b border-border-subtle bg-bg-elevated">
-          <div className="flex items-center gap-2 sm:gap-3">
+        {/* Sticky wrapper */}
+        <div className="sticky top-0 z-10">
+          <header className="flex flex-wrap items-center gap-y-2 gap-x-3 px-3 py-2 bg-bg-elevated/90 backdrop-blur-sm sm:flex-nowrap sm:items-center sm:justify-between sm:px-6 sm:py-4">
+            <div className="flex items-center gap-1.5 sm:gap-3 mr-auto">
             <Link
               href="/"
               className="font-display text-lg sm:text-xl text-accent uppercase tracking-wider hover:glow-text transition-all"
@@ -73,13 +75,23 @@ export default function TierListPage({
               <span className="sm:hidden">RE</span>
             </Link>
             <span className="text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-0.5 font-mono uppercase tracking-wider text-accent border border-accent/30 bg-accent/5 whitespace-nowrap">
-              Viewing
+              {t("viewing")}
             </span>
           </div>
-          <div className="flex items-center gap-1.5 sm:gap-3">
+          <div className="flex items-center gap-2 w-full sm:w-auto order-last sm:order-none">
+            <button
+              onClick={() => router.push("/tierlist")}
+              className="flex-1 sm:flex-none px-2 sm:px-4 py-2 sm:py-2 text-[10px] sm:text-xs font-bold text-text-secondary uppercase tracking-wider border border-border-default bg-bg-surface hover:border-accent/40 hover:text-accent transition-all duration-200 whitespace-nowrap"
+              style={{
+                clipPath:
+                  "polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)",
+              }}
+            >
+              {t("createYourOwn")}
+            </button>
             <button
               onClick={() => dispatch({ type: "SET_EDIT_MODE" })}
-              className="px-3 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-bold text-black uppercase tracking-wider bg-accent hover:bg-accent-dim transition-colors duration-200 whitespace-nowrap"
+              className="flex-1 sm:flex-none px-3 sm:px-5 py-2 sm:py-2 text-xs sm:text-sm font-bold text-black uppercase tracking-wider bg-accent hover:bg-accent-dim transition-colors duration-200 whitespace-nowrap"
               style={{
                 clipPath:
                   "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)",
@@ -87,12 +99,11 @@ export default function TierListPage({
             >
               {isDesktop ? t("editList") : t("edit")}
             </button>
-            <LocaleSwitcher />
           </div>
+          <LocaleSwitcher />
         </header>
-
-        {/* Divider */}
         <hr className="divider-glow" />
+        </div>
 
         <div className="flex-1 p-2 sm:p-6 cf-texture min-h-0 overflow-y-auto">
           {isDesktop ? (
@@ -139,8 +150,9 @@ export default function TierListPage({
   /* ---- Edit mode ---- */
   return (
     <div className="flex flex-col flex-1 h-full bg-bg-base">
-      {/* Header */}
-      <header className="flex items-center justify-between px-3 sm:px-6 py-2.5 sm:py-4 border-b border-border-subtle bg-bg-elevated">
+      {/* Sticky wrapper */}
+      <div className="sticky top-0 z-10">
+        <header className="flex items-center justify-between px-3 sm:px-6 py-2.5 sm:py-4 bg-bg-elevated/90 backdrop-blur-sm">
         <Link
           href="/"
           className="font-display text-lg sm:text-xl text-accent uppercase tracking-wider hover:glow-text transition-all"
@@ -165,9 +177,8 @@ export default function TierListPage({
           <LocaleSwitcher />
         </div>
       </header>
-
-      {/* Divider */}
       <hr className="divider-glow" />
+      </div>
 
       {/* Content */}
       <div className="flex-1 p-4 sm:p-6 cf-texture min-h-0">

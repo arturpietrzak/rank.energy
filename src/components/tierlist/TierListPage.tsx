@@ -9,6 +9,7 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
 import DesktopTierList from "./DesktopTierList";
 import MobileTierList from "./MobileTierList";
 import ShareButton from "./ShareButton";
+import LocaleSwitcher from "@/components/LocaleSwitcher";
 
 interface Props {
   monsters: MonsterConfig[];
@@ -16,11 +17,19 @@ interface Props {
   maxId: number;
 }
 
-export default function TierListPage({ monsters, sharedEncoded, maxId }: Props) {
+export default function TierListPage({
+  monsters,
+  sharedEncoded,
+  maxId,
+}: Props) {
   const t = useTranslations("TierList");
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
-  const { state, dispatch, shareUrl } = useTierList(monsters, sharedEncoded, maxId);
+  const { state, dispatch, shareUrl } = useTierList(
+    monsters,
+    sharedEncoded,
+    maxId,
+  );
 
   const monsterMap = useMemo(() => {
     const map = new Map<number, MonsterConfig>();
@@ -29,10 +38,15 @@ export default function TierListPage({ monsters, sharedEncoded, maxId }: Props) 
   }, [monsters]);
 
   const handleMoveMonster = useCallback(
-    (monsterId: number, fromTier: TierSlug, toTier: TierSlug, toIndex: number) => {
+    (
+      monsterId: number,
+      fromTier: TierSlug,
+      toTier: TierSlug,
+      toIndex: number,
+    ) => {
       dispatch({ type: "MOVE_MONSTER", monsterId, fromTier, toTier, toIndex });
     },
-    [dispatch]
+    [dispatch],
   );
 
   const encodedUrl = shareUrl();
@@ -48,20 +62,29 @@ export default function TierListPage({ monsters, sharedEncoded, maxId }: Props) 
         {/* Header */}
         <header className="flex items-center justify-between px-6 py-4 border-b border-border-subtle bg-bg-elevated">
           <div className="flex items-center gap-3">
-            <Link href="/" className="font-display text-xl text-accent uppercase tracking-wider hover:glow-text transition-all">
+            <Link
+              href="/"
+              className="font-display text-xl text-accent uppercase tracking-wider hover:glow-text transition-all"
+            >
               rank.energy
             </Link>
             <span className="text-[10px] px-2 py-0.5 font-mono uppercase tracking-wider text-accent border border-accent/30 bg-accent/5">
               Viewing
             </span>
           </div>
-          <button
-            onClick={() => dispatch({ type: "SET_EDIT_MODE" })}
-            className="px-5 py-2 text-sm font-bold text-black uppercase tracking-wider bg-accent hover:bg-accent-dim transition-colors duration-200"
-            style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
-          >
-            {t("editList")}
-          </button>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button
+              onClick={() => dispatch({ type: "SET_EDIT_MODE" })}
+              className="px-5 py-2 text-sm font-bold text-black uppercase tracking-wider bg-accent hover:bg-accent-dim transition-colors duration-200"
+              style={{
+                clipPath:
+                  "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)",
+              }}
+            >
+              {t("editList")}
+            </button>
+            <LocaleSwitcher />
+          </div>
         </header>
 
         <div className="flex-1 overflow-auto p-4 sm:p-6 cf-texture">
@@ -94,11 +117,15 @@ export default function TierListPage({ monsters, sharedEncoded, maxId }: Props) 
             onClick={() => dispatch({ type: "RESET_ALL" })}
             disabled={!encodedUrl}
             className="px-4 py-2 text-xs font-bold text-text-secondary uppercase tracking-wider border border-border-default bg-bg-surface hover:border-accent/40 hover:text-accent transition-all duration-200 disabled:opacity-20 disabled:cursor-not-allowed disabled:hover:border-border-default disabled:hover:text-text-secondary"
-            style={{ clipPath: "polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)" }}
+            style={{
+              clipPath:
+                "polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)",
+            }}
           >
             {t("resetAll")}
           </button>
           <ShareButton shareUrl={encodedUrl} disabled={!encodedUrl} />
+          <LocaleSwitcher />
         </div>
       </header>
 

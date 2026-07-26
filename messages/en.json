@@ -2,7 +2,10 @@
   "HomePage": {
     "title": "rank.energy",
     "description": "Rank your favorite energy drinks",
-    "goToTierList": "Go to Tier List"
+    "goToTierList": "Go to Tier List",
+    "flavors": "Flavors",
+    "tiers": "Tiers",
+    "rankings": "Rankings"
   },
   "TierList": {
     "share": "Share Link",
@@ -13,6 +16,7 @@
     "viewTiers": "Your Rankings",
     "backToQueue": "Keep Ranking",
     "dropHere": "Drop here",
+    "loading": "Loading",
     "resetAll": "Clear All",
     "allRated": "All rated! 🎉",
     "reviewAgain": "Review Again"

@@ -2,7 +2,10 @@
   "HomePage": {
     "title": "rank.energy",
     "description": "Oceń swoje ulubione napoje energetyczne",
-    "goToTierList": "Przejdź do rankingu"
+    "goToTierList": "Przejdź do rankingu",
+    "flavors": "Smaki",
+    "tiers": "Poziomy",
+    "rankings": "Rankingi"
   },
   "TierList": {
     "share": "Udostępnij",
@@ -13,6 +16,7 @@
     "viewTiers": "Twój ranking",
     "backToQueue": "Kontynuuj",
     "dropHere": "Upuść tutaj",
+    "loading": "Ładowanie",
     "resetAll": "Wyczyść wszystko",
     "allRated": "Wszystko ocenione! 🎉",
     "reviewAgain": "Przejrzyj jeszcze raz"

@@ -1,11 +1,16 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import LocaleSwitcher from "@/components/LocaleSwitcher";
 
 export default async function HomePage() {
   const t = await getTranslations("HomePage");
 
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-bg-base p-6 relative overflow-hidden">
+      {/* Locale switcher — top-right */}
+      <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20">
+        <LocaleSwitcher />
+      </div>
       {/* Background decorative elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent/5 blur-[120px] rounded-full" />
@@ -63,7 +68,7 @@ export default async function HomePage() {
               31
             </span>
             <span className="text-xs text-text-muted uppercase tracking-widest">
-              Flavors
+              {t("flavors")}
             </span>
           </div>
           <div className="w-px h-10 bg-border-default" />
@@ -72,7 +77,7 @@ export default async function HomePage() {
               7
             </span>
             <span className="text-xs text-text-muted uppercase tracking-widest">
-              Tiers
+              {t("tiers")}
             </span>
           </div>
           <div className="w-px h-10 bg-border-default" />
@@ -81,7 +86,7 @@ export default async function HomePage() {
               ∞
             </span>
             <span className="text-xs text-text-muted uppercase tracking-widest">
-              Rankings
+              {t("rankings")}
             </span>
           </div>
         </div>

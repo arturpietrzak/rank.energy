@@ -1,26 +1,312 @@
 @import "tailwindcss";
 
+/* ============================================
+   rank.energy — Design System
+   Cyber-industrial / premium gaming aesthetic
+   ============================================ */
+
+/* ---- Design Tokens ---- */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Background hierarchy */
+  --color-bg-base: #080808;
+  --color-bg-elevated: #0f0f0f;
+  --color-bg-surface: #161616;
+  --color-bg-overlay: #1c1c1c;
+
+  /* Borders & dividers */
+  --color-border-subtle: #1f1f1f;
+  --color-border-default: #2a2a2a;
+  --color-border-strong: #3a3a3a;
+
+  /* Text */
+  --color-text-primary: #f4f4f4;
+  --color-text-secondary: #888888;
+  --color-text-muted: #555555;
+
+  /* Accent — electric neon green */
+  --color-accent: #6bff2a;
+  --color-accent-dim: #4ecf1a;
+  --color-accent-glow: rgba(107, 255, 42, 0.25);
+
+  /* Tier colors (gamified, saturated) */
+  --color-tier-viking: #9333ea;
+  --color-tier-s: #ef4444;
+  --color-tier-a: #f97316;
+  --color-tier-b: #eab308;
+  --color-tier-c: #22c55e;
+  --color-tier-d: #3b82f6;
+  --color-tier-bepower: #6366f1;
+  --color-tier-unranked: #525252;
+
+  /* Status */
+  --color-danger: #ef4444;
+  --color-danger-dim: #7f1d1d;
+  --color-success: #22c55e;
+
+  /* Radii — sharp angles, not rounded startup aesthetic */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-xl: 8px;
+
+  /* Shadows */
+  --shadow-glow-sm: 0 0 8px var(--color-accent-glow);
+  --shadow-glow-md: 0 0 16px var(--color-accent-glow);
+  --shadow-glow-lg: 0 0 32px var(--color-accent-glow);
 }
+
+/* ---- Tailwind v4 Theme Integration ---- */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-bg-base: var(--color-bg-base);
+  --color-bg-elevated: var(--color-bg-elevated);
+  --color-bg-surface: var(--color-bg-surface);
+  --color-bg-overlay: var(--color-bg-overlay);
+  --color-border-subtle: var(--color-border-subtle);
+  --color-border-default: var(--color-border-default);
+  --color-border-strong: var(--color-border-strong);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
+  --color-accent: var(--color-accent);
+  --color-accent-dim: var(--color-accent-dim);
+  --color-accent-glow: var(--color-accent-glow);
+  --color-danger: var(--color-danger);
+  --color-danger-dim: var(--color-danger-dim);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-russo-one);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ---- Base ---- */
+
+html {
+  background: var(--color-bg-base);
+  color: var(--color-text-primary);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  background: var(--color-bg-base);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---- Selection ---- */
+
+::selection {
+  background: var(--color-accent);
+  color: #000;
+}
+
+/* ---- Scrollbar ---- */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-dim);
+}
+
+/* ---- Noise texture overlay ---- */
+
+.noise-bg::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---- Glow utilities ---- */
+
+.glow-text {
+  text-shadow: 0 0 20px var(--color-accent-glow), 0 0 40px var(--color-accent-glow);
+}
+
+.glow-border {
+  box-shadow: 0 0 0 1px var(--color-accent), 0 0 12px var(--color-accent-glow), inset 0 0 12px var(--color-accent-glow);
+}
+
+.glow-border-subtle {
+  box-shadow: 0 0 0 1px rgba(107, 255, 42, 0.3), 0 0 6px rgba(107, 255, 42, 0.1);
+}
+
+.glow-card {
+  box-shadow: 0 0 0 1px var(--color-border-subtle), 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.glow-card:hover {
+  box-shadow: 0 0 0 1px var(--color-accent), 0 0 16px var(--color-accent-glow), 0 4px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* ---- Scanline overlay (subtle) ---- */
+
+.scanlines::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.015;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.4) 2px,
+    rgba(0, 0, 0, 0.4) 4px
+  );
+}
+
+/* ---- Animations ---- */
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 4px var(--color-accent-glow), 0 0 0 1px rgba(107, 255, 42, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 16px var(--color-accent-glow), 0 0 32px var(--color-accent-glow), 0 0 0 1px var(--color-accent);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bar-glow {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.6s ease-out forwards;
+}
+
+.animate-bar-glow {
+  animation: bar-glow 3s ease-in-out infinite;
+}
+
+/* ---- Carbon fiber texture pattern ---- */
+
+.cf-texture {
+  background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 1px,
+      rgba(255, 255, 255, 0.01) 1px,
+      rgba(255, 255, 255, 0.01) 2px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.008) 2px,
+      rgba(255, 255, 255, 0.008) 4px
+    );
+}
+
+/* ---- Diagonal accent strip ---- */
+
+.accent-strip {
+  position: relative;
+}
+
+.accent-strip::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--color-accent), transparent 80%);
+}
+
+/* ---- Header divider with gradient ---- */
+
+.divider-glow {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-border-default) 20%,
+    var(--color-accent) 50%,
+    var(--color-border-default) 80%,
+    transparent
+  );
+}
+
+/* ---- Corner accents ---- */
+
+.corner-accent {
+  position: relative;
+}
+
+.corner-accent::before,
+.corner-accent::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+}
+
+.corner-accent::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid var(--color-accent);
+  border-left: 2px solid var(--color-accent);
+}
+
+.corner-accent::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid var(--color-accent);
+  border-right: 2px solid var(--color-accent);
 }

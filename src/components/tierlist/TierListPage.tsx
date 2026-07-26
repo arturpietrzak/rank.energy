@@ -29,12 +29,7 @@ export default function TierListPage({ monsters, sharedEncoded, maxId }: Props) 
   }, [monsters]);
 
   const handleMoveMonster = useCallback(
-    (
-      monsterId: number,
-      fromTier: TierSlug,
-      toTier: TierSlug,
-      toIndex: number
-    ) => {
+    (monsterId: number, fromTier: TierSlug, toTier: TierSlug, toIndex: number) => {
       dispatch({ type: "MOVE_MONSTER", monsterId, fromTier, toTier, toIndex });
     },
     [dispatch]
@@ -42,33 +37,34 @@ export default function TierListPage({ monsters, sharedEncoded, maxId }: Props) 
 
   const encodedUrl = shareUrl();
 
-  // View-only mode (shared link before editing): always show tier columns,
-  // read-only, no drag, no queue — works on both desktop and mobile.
-  // Don't render until we know the viewport width (prevents mobile flash on desktop)
   if (isDesktop === null) {
-    return <div className="flex flex-col flex-1 h-full" />;
+    return <div className="flex flex-col flex-1 h-full bg-bg-base" />;
   }
 
+  /* ---- View-only mode (shared link) ---- */
   if (state.isViewOnly) {
     return (
-      <div className="flex flex-col flex-1 h-full">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-zinc-200 dark:border-zinc-700">
+      <div className="flex flex-col flex-1 h-full bg-bg-base">
+        {/* Header */}
+        <header className="flex items-center justify-between px-6 py-4 border-b border-border-subtle bg-bg-elevated">
           <div className="flex items-center gap-3">
-            <Link href="/" className="text-xl font-bold text-zinc-900 dark:text-zinc-100 hover:underline">
+            <Link href="/" className="font-display text-xl text-accent uppercase tracking-wider hover:glow-text transition-all">
               rank.energy
             </Link>
-            <span className="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200">
+            <span className="text-[10px] px-2 py-0.5 font-mono uppercase tracking-wider text-accent border border-accent/30 bg-accent/5">
               Viewing
             </span>
           </div>
           <button
             onClick={() => dispatch({ type: "SET_EDIT_MODE" })}
-            className="rounded-full bg-zinc-800 dark:bg-zinc-200 px-4 py-2 text-white dark:text-zinc-900 text-sm font-medium hover:opacity-90 transition-opacity"
+            className="px-5 py-2 text-sm font-bold text-black uppercase tracking-wider bg-accent hover:bg-accent-dim transition-colors duration-200"
+            style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
           >
             {t("editList")}
           </button>
-        </div>
-        <div className="flex-1 overflow-auto p-4">
+        </header>
+
+        <div className="flex-1 overflow-auto p-4 sm:p-6 cf-texture">
           <DesktopTierList
             tiers={state.tiers}
             monsters={monsterMap}
@@ -80,28 +76,37 @@ export default function TierListPage({ monsters, sharedEncoded, maxId }: Props) 
     );
   }
 
-  // Edit mode: responsive split
+  /* ---- Edit mode ---- */
   return (
-    <div className="flex flex-col flex-1 h-full">
+    <div className="flex flex-col flex-1 h-full bg-bg-base">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-zinc-200 dark:border-zinc-700">
-        <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">
-          rank.energy
-        </h1>
-        <div className="flex items-center gap-2">
+      <header className="flex items-center justify-between px-6 py-4 border-b border-border-subtle bg-bg-elevated">
+        <Link
+          href="/"
+          className="font-display text-xl text-accent uppercase tracking-wider hover:glow-text transition-all"
+        >
+          <span className="hidden sm:inline">rank.energy</span>
+          <span className="sm:hidden">RE</span>
+        </Link>
+
+        <div className="flex items-center gap-2 sm:gap-3">
           <button
             onClick={() => dispatch({ type: "RESET_ALL" })}
             disabled={!encodedUrl}
-            className="rounded-full bg-zinc-200 dark:bg-zinc-700 px-4 py-2 text-sm font-medium hover:bg-zinc-300 dark:hover:bg-zinc-600 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            className="px-4 py-2 text-xs font-bold text-text-secondary uppercase tracking-wider border border-border-default bg-bg-surface hover:border-accent/40 hover:text-accent transition-all duration-200 disabled:opacity-20 disabled:cursor-not-allowed disabled:hover:border-border-default disabled:hover:text-text-secondary"
+            style={{ clipPath: "polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)" }}
           >
             {t("resetAll")}
           </button>
           <ShareButton shareUrl={encodedUrl} disabled={!encodedUrl} />
         </div>
-      </div>
+      </header>
+
+      {/* Divider */}
+      <hr className="divider-glow" />
 
       {/* Content */}
-      <div className="flex-1 overflow-hidden p-4">
+      <div className="flex-1 p-4 sm:p-6 cf-texture min-h-0">
         {isDesktop ? (
           <DesktopTierList
             tiers={state.tiers}

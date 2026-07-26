@@ -4,21 +4,37 @@ import { useState, useCallback } from "react";
 import {
   DndContext,
   DragOverlay,
-  pointerWithin,
+  rectIntersection,
   PointerSensor,
   TouchSensor,
   useSensor,
   useSensors,
+  useDndContext,
   type DragStartEvent,
   type DragEndEvent,
 } from "@dnd-kit/core";
 import { useDroppable } from "@dnd-kit/core";
-import { SortableContext, horizontalListSortingStrategy } from "@dnd-kit/sortable";
+import {
+  SortableContext,
+  horizontalListSortingStrategy,
+  arrayMove,
+} from "@dnd-kit/sortable";
 import { useTranslations } from "next-intl";
 import type { MonsterConfig, TierState, TierSlug } from "@/types";
 import { TIERS } from "@/types";
 import TierBadge from "./TierBadge";
 import MonsterCard from "./MonsterCard";
+
+const TIER_GLOW: Record<string, string> = {
+  "viking-berry": "rgba(147,51,234,0.25)",
+  s: "rgba(239,68,68,0.25)",
+  a: "rgba(249,115,22,0.25)",
+  b: "rgba(234,179,8,0.25)",
+  c: "rgba(34,197,94,0.25)",
+  d: "rgba(59,130,246,0.25)",
+  "be-power": "rgba(99,102,241,0.25)",
+  unranked: "rgba(82,82,82,0.25)",
+};
 
 interface Props {
   tiers: TierState;
@@ -38,7 +54,7 @@ export default function DesktopTierList({
   onMoveMonster,
   readOnly = false,
 }: Props) {
-  // ---- Read-only render (no DnD) ----
+  /* ---- Read-only render ---- */
   if (readOnly) {
     return (
       <div className="flex flex-col gap-3 overflow-y-auto flex-1">
@@ -59,7 +75,7 @@ export default function DesktopTierList({
     );
   }
 
-  // ---- Editable DnD render ----
+  /* ---- Editable DnD render ---- */
   const [activeId, setActiveId] = useState<number | null>(null);
 
   const sensors = useSensors(
@@ -123,7 +139,7 @@ export default function DesktopTierList({
   return (
     <DndContext
       sensors={sensors}
-      collisionDetection={pointerWithin}
+      collisionDetection={rectIntersection}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
@@ -142,7 +158,7 @@ export default function DesktopTierList({
           );
         })}
       </div>
-      <DragOverlay>
+      <DragOverlay dropAnimation={null}>
         {activeMonster && (
           <MonsterCard monster={activeMonster} isDragOverlay />
         )}
@@ -151,7 +167,27 @@ export default function DesktopTierList({
   );
 }
 
-// ---- DnD tier row ----
+/* ---- Determine which tier is being hovered ---- */
+
+function useTierOver(slug: TierSlug, tierMonsterIds: number[]): boolean {
+  const { over } = useDndContext();
+  if (!over) return false;
+
+  // Direct droppable match
+  const overId = over.id;
+  if (typeof overId === "string" && overId === `tier-${slug}`) {
+    return true;
+  }
+
+  // Hovering over a card that belongs to this tier
+  if (typeof overId === "number" && tierMonsterIds.includes(overId)) {
+    return true;
+  }
+
+  return false;
+}
+
+/* ---- DnD Tier Row ---- */
 
 function TierRow({
   slug,
@@ -160,23 +196,47 @@ function TierRow({
   slug: TierSlug;
   monsters: MonsterConfig[];
 }) {
-  const { setNodeRef, isOver } = useDroppable({ id: `tier-${slug}` });
+  const { setNodeRef, isOver: droppableIsOver } = useDroppable({
+    id: `tier-${slug}`,
+  });
   const ids = tierMonsters.map((m) => m.id);
+  const tierOver = useTierOver(slug, ids);
+  const isOver = droppableIsOver || tierOver;
+  const glow = TIER_GLOW[slug] ?? "rgba(82,82,82,0.25)";
 
   return (
     <div
       ref={setNodeRef}
       className={`
-        flex items-start gap-2 p-2 rounded-lg min-h-20
-        border-2 border-dashed transition-colors
-        ${isOver ? "border-green-400 bg-green-50 dark:bg-green-950" : "border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900"}
+        relative flex items-start gap-3 p-3 min-h-[88px]
+        border transition-colors duration-200
+        bg-bg-surface
+        ${isOver
+          ? "border-accent"
+          : "border-border-subtle"
+        }
       `}
+      style={{
+        boxShadow: isOver
+          ? `0 0 24px ${glow}, 0 0 16px var(--color-accent-glow), inset 0 0 16px ${glow}`
+          : undefined,
+      }}
     >
-      <div className="flex-shrink-0 w-[120px] flex items-center gap-2">
+      {/* Left accent strip */}
+      <div
+        className={`absolute left-0 top-0 bottom-0 w-1 transition-colors duration-200 ${
+          isOver ? "bg-accent" : "bg-border-default"
+        }`}
+      />
+
+      {/* Tier label */}
+      <div className="flex-shrink-0 w-[100px] flex items-center pt-1 pl-1">
         <TierBadge slug={slug} />
       </div>
+
+      {/* Monster cards */}
       <SortableContext items={ids} strategy={horizontalListSortingStrategy}>
-        <div className="flex gap-1.5 flex-wrap flex-1">
+        <div className="flex gap-1.5 flex-wrap flex-1 min-h-[56px] items-start">
           {tierMonsters.map((monster) => (
             <MonsterCard key={monster.id} monster={monster} />
           ))}
@@ -186,7 +246,7 @@ function TierRow({
   );
 }
 
-// ---- Read-only row (no DnD) ----
+/* ---- Read-only Row ---- */
 
 function ReadOnlyRow({
   slug,
@@ -196,8 +256,9 @@ function ReadOnlyRow({
   monsters: MonsterConfig[];
 }) {
   return (
-    <div className="flex items-start gap-2 p-2 rounded-lg min-h-20 border-2 border-dashed border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900">
-      <div className="flex-shrink-0 w-[120px] flex items-center gap-2">
+    <div className="relative flex items-start gap-3 p-3 min-h-[88px] border border-border-subtle bg-bg-surface">
+      <div className="absolute left-0 top-0 bottom-0 w-1 bg-border-default" />
+      <div className="flex-shrink-0 w-[100px] flex items-center pt-1 pl-1">
         <TierBadge slug={slug} />
       </div>
       <div className="flex gap-1.5 flex-wrap flex-1">
@@ -215,18 +276,21 @@ function ReadOnlyImage({ monster }: { monster: MonsterConfig }) {
 
   return (
     <div className="relative group">
-      <div className="w-16 h-16 rounded-lg bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 shadow-sm flex-shrink-0 flex items-center justify-center overflow-hidden">
+      <div className="w-16 h-16 bg-bg-overlay border border-border-subtle flex-shrink-0 flex items-center justify-center overflow-hidden"
+        style={{ clipPath: "polygon(3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%, 0 3px)" }}>
         {monster.image ? (
           <img
             src={monster.image}
             alt={name}
-            className="w-full h-full object-contain rounded-lg pointer-events-none"
+            className="w-full h-full object-contain pointer-events-none"
           />
         ) : (
-          <span className="text-lg text-zinc-400">?</span>
+          <span className="text-lg text-text-muted">?</span>
         )}
       </div>
-      <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-zinc-800 text-white text-xs px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
+      {/* Tooltip */}
+      <div className="absolute -top-9 left-1/2 -translate-x-1/2 bg-bg-overlay border border-border-default text-text-primary text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50"
+        style={{ clipPath: "polygon(2px 0, 100% 0, 100% calc(100% - 2px), calc(100% - 2px) 100%, 0 100%, 0 2px)" }}>
         {name}
       </div>
     </div>

@@ -23,42 +23,57 @@ export default function MonsterCard({ monster, isDragOverlay }: Props) {
     isDragging,
   } = useSortable({ id: monster.id });
 
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    opacity: isDragging && !isDragOverlay ? 0.3 : 1,
-  };
-
   return (
     <div className="relative group">
       <div
         ref={setNodeRef}
-        style={style}
+        style={{
+          transform: CSS.Transform.toString(transform),
+          transition,
+          clipPath: isDragOverlay
+            ? "polygon(3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%, 0 3px)"
+            : "polygon(2px 0, 100% 0, 100% calc(100% - 2px), calc(100% - 2px) 100%, 0 100%, 0 2px)",
+          background: isDragOverlay
+            ? "var(--color-bg-overlay)"
+            : "var(--color-bg-surface)",
+        }}
         {...attributes}
         {...listeners}
         className={`
-          w-16 h-16 rounded-lg bg-white dark:bg-zinc-800
-          border border-zinc-200 dark:border-zinc-700
-          shadow-sm cursor-grab active:cursor-grabbing
-          select-none touch-none flex-shrink-0
+          w-16 h-16 flex-shrink-0
           flex items-center justify-center overflow-hidden
-          ${isDragOverlay ? "shadow-lg ring-2 ring-green-400 scale-110" : ""}
-          ${isDragging && !isDragOverlay ? "opacity-30" : ""}
+          select-none touch-none
+          transition-[border-color] duration-150
+          border
+          ${isDragOverlay
+            ? "scale-110 border-accent cursor-grabbing"
+            : isDragging
+              ? "opacity-20 border-border-subtle"
+              : "cursor-grab border-border-subtle hover:border-accent/50"
+          }
         `}
       >
         {monster.image ? (
           <img
             src={monster.image}
             alt={name}
-            className="w-full h-full object-contain rounded-lg pointer-events-none"
+            className="w-full h-full object-contain pointer-events-none"
+            draggable={false}
           />
         ) : (
-          <span className="text-lg text-zinc-400">?</span>
+          <span className="text-lg text-text-muted">?</span>
         )}
       </div>
-      <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-zinc-800 text-white text-xs px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
-        {name}
-      </div>
+
+      {/* Tooltip — only on non-dragging, non-overlay cards */}
+      {!isDragging && !isDragOverlay && (
+        <div
+          className="absolute -top-9 left-1/2 -translate-x-1/2 bg-bg-overlay border border-border-default text-text-primary text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50"
+          style={{ clipPath: "polygon(2px 0, 100% 0, 100% calc(100% - 2px), calc(100% - 2px) 100%, 0 100%, 0 2px)" }}
+        >
+          {name}
+        </div>
+      )}
     </div>
   );
 }

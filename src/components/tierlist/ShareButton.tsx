@@ -30,7 +30,8 @@ export default function ShareButton({ shareUrl, disabled }: Props) {
     <button
       onClick={handleShare}
       disabled={disabled}
-      className="rounded-full bg-green-600 px-6 py-2 text-white font-medium text-sm hover:bg-green-700 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+      className="relative min-w-[140px] inline-flex justify-center px-5 py-2 text-sm font-bold text-black uppercase tracking-wider bg-accent hover:bg-accent-dim transition-colors duration-200 disabled:opacity-20 disabled:cursor-not-allowed disabled:hover:bg-accent"
+      style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
     >
       {copied ? t("copied") : t("share")}
     </button>

@@ -2,19 +2,30 @@ import { Link } from "@/i18n/navigation";
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 dark:bg-black p-8">
-      <main className="flex flex-col items-center gap-6 text-center max-w-md">
-        <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-100">
-          404
-        </h1>
-        <p className="text-lg text-zinc-600 dark:text-zinc-400">
-          Page not found
+    <div className="flex flex-col flex-1 items-center justify-center bg-bg-base p-8">
+      <main className="flex flex-col items-center gap-8 text-center max-w-md animate-fade-in">
+        {/* 404 display */}
+        <div className="flex flex-col items-center gap-4">
+          <div className="font-mono text-accent text-sm tracking-[0.3em] uppercase opacity-70">
+            <span className="w-6 h-px bg-accent/50 inline-block align-middle mr-2" />
+            Error
+            <span className="w-6 h-px bg-accent/50 inline-block align-middle ml-2" />
+          </div>
+          <h1 className="font-display text-7xl text-accent glow-text">
+            404
+          </h1>
+        </div>
+
+        <p className="text-lg text-text-secondary max-w-sm leading-relaxed">
+          This page doesn&apos;t exist. The energy you&apos;re looking for is elsewhere.
         </p>
+
         <Link
           href="/"
-          className="rounded-full bg-foreground px-6 py-2 text-background font-medium hover:opacity-90 transition-opacity"
+          className="px-8 py-3 text-sm font-bold text-black uppercase tracking-wider bg-accent hover:bg-accent-dim transition-colors duration-200"
+          style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
         >
-          Go home
+          Return Home
         </Link>
       </main>
     </div>

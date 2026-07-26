@@ -22,14 +22,14 @@ export interface TierMeta {
 }
 
 export const TIERS: TierMeta[] = [
-  { slug: 'viking-berry', color: 'bg-purple-600' },
-  { slug: 's',             color: 'bg-red-500' },
-  { slug: 'a',             color: 'bg-orange-500' },
-  { slug: 'b',             color: 'bg-yellow-500' },
-  { slug: 'c',             color: 'bg-green-500' },
-  { slug: 'd',             color: 'bg-blue-500' },
-  { slug: 'be-power',      color: 'bg-indigo-500' },
-  { slug: 'unranked',      color: 'bg-gray-400' },
+  { slug: 'viking-berry', color: 'bg-purple-700' },
+  { slug: 's',             color: 'bg-red-600' },
+  { slug: 'a',             color: 'bg-orange-600' },
+  { slug: 'b',             color: 'bg-yellow-600' },
+  { slug: 'c',             color: 'bg-green-600' },
+  { slug: 'd',             color: 'bg-blue-600' },
+  { slug: 'be-power',      color: 'bg-indigo-600' },
+  { slug: 'unranked',      color: 'bg-zinc-700' },
 ];
 
 /** 3-bit tier index for compact binary encoding (0-6 for the 7 ranked tiers) */

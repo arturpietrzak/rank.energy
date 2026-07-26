@@ -1,0 +1,159 @@
+{
+  "monsters": [
+    {
+      "id": 1,
+      "image": "/images/monsters/1-thumb.webp",
+      "imageDetail": "/images/monsters/1.webp"
+    },
+    {
+      "id": 2,
+      "image": "/images/monsters/2-thumb.webp",
+      "imageDetail": "/images/monsters/2.webp"
+    },
+    {
+      "id": 3,
+      "image": "/images/monsters/3-thumb.webp",
+      "imageDetail": "/images/monsters/3.webp"
+    },
+    {
+      "id": 4,
+      "image": "/images/monsters/4-thumb.webp",
+      "imageDetail": "/images/monsters/4.webp"
+    },
+    {
+      "id": 5,
+      "image": "/images/monsters/5-thumb.webp",
+      "imageDetail": "/images/monsters/5.webp"
+    },
+    {
+      "id": 6,
+      "image": "/images/monsters/6-thumb.webp",
+      "imageDetail": "/images/monsters/6.webp"
+    },
+    {
+      "id": 7,
+      "image": "/images/monsters/7-thumb.webp",
+      "imageDetail": "/images/monsters/7.webp"
+    },
+    {
+      "id": 8,
+      "image": "/images/monsters/8-thumb.webp",
+      "imageDetail": "/images/monsters/8.webp"
+    },
+    {
+      "id": 9,
+      "image": "/images/monsters/9-thumb.webp",
+      "imageDetail": "/images/monsters/9.webp"
+    },
+    {
+      "id": 10,
+      "image": "/images/monsters/10-thumb.webp",
+      "imageDetail": "/images/monsters/10.webp"
+    },
+    {
+      "id": 11,
+      "image": "/images/monsters/11-thumb.webp",
+      "imageDetail": "/images/monsters/11.webp"
+    },
+    {
+      "id": 12,
+      "image": "/images/monsters/12-thumb.webp",
+      "imageDetail": "/images/monsters/12.webp"
+    },
+    {
+      "id": 13,
+      "image": "/images/monsters/13-thumb.webp",
+      "imageDetail": "/images/monsters/13.webp"
+    },
+    {
+      "id": 14,
+      "image": "/images/monsters/14-thumb.webp",
+      "imageDetail": "/images/monsters/14.webp"
+    },
+    {
+      "id": 15,
+      "image": "/images/monsters/15-thumb.webp",
+      "imageDetail": "/images/monsters/15.webp"
+    },
+    {
+      "id": 16,
+      "image": "/images/monsters/16-thumb.webp",
+      "imageDetail": "/images/monsters/16.webp"
+    },
+    {
+      "id": 17,
+      "image": "/images/monsters/17-thumb.webp",
+      "imageDetail": "/images/monsters/17.webp"
+    },
+    {
+      "id": 18,
+      "image": "/images/monsters/18-thumb.webp",
+      "imageDetail": "/images/monsters/18.webp"
+    },
+    {
+      "id": 19,
+      "image": "/images/monsters/19-thumb.webp",
+      "imageDetail": "/images/monsters/19.webp"
+    },
+    {
+      "id": 20,
+      "image": "/images/monsters/20-thumb.webp",
+      "imageDetail": "/images/monsters/20.webp"
+    },
+    {
+      "id": 21,
+      "image": "/images/monsters/21-thumb.webp",
+      "imageDetail": "/images/monsters/21.webp"
+    },
+    {
+      "id": 22,
+      "image": "/images/monsters/22-thumb.webp",
+      "imageDetail": "/images/monsters/22.webp"
+    },
+    {
+      "id": 23,
+      "image": "/images/monsters/23-thumb.webp",
+      "imageDetail": "/images/monsters/23.webp"
+    },
+    {
+      "id": 24,
+      "image": "/images/monsters/24-thumb.webp",
+      "imageDetail": "/images/monsters/24.webp"
+    },
+    {
+      "id": 25,
+      "image": "/images/monsters/25-thumb.webp",
+      "imageDetail": "/images/monsters/25.webp"
+    },
+    {
+      "id": 26,
+      "image": "/images/monsters/26-thumb.webp",
+      "imageDetail": "/images/monsters/26.webp"
+    },
+    {
+      "id": 27,
+      "image": "/images/monsters/27-thumb.webp",
+      "imageDetail": "/images/monsters/27.webp"
+    },
+    {
+      "id": 28,
+      "image": "/images/monsters/28-thumb.webp",
+      "imageDetail": "/images/monsters/28.webp"
+    },
+    {
+      "id": 29,
+      "image": "/images/monsters/29-thumb.webp",
+      "imageDetail": "/images/monsters/29.webp"
+    },
+    {
+      "id": 30,
+      "image": "/images/monsters/30-thumb.webp",
+      "imageDetail": "/images/monsters/30.webp"
+    },
+    {
+      "id": 31,
+      "image": "/images/monsters/31-thumb.webp",
+      "imageDetail": "/images/monsters/31.webp"
+    }
+  ]
+}

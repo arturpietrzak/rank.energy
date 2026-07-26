@@ -1,0 +1,124 @@
+{
+  "HomePage": {
+    "title": "rank.energy",
+    "description": "Oceń swoje ulubione napoje energetyczne"
+  },
+  "TierList": {
+    "share": "Udostępnij",
+    "copied": "Link skopiowany!",
+    "editList": "Edytuj listę",
+    "didntDrink": "Nie piłem",
+    "queueProgress": "{current} z {total}",
+    "viewTiers": "Twój ranking",
+    "backToQueue": "Kontynuuj",
+    "dropHere": "Upuść tutaj",
+    "resetAll": "Wyczyść wszystko",
+    "allRated": "Wszystko ocenione! 🎉",
+    "reviewAgain": "Przejrzyj jeszcze raz"
+  },
+  "Tiers": {
+    "viking-berry": "Viking Berry",
+    "s": "S Tier",
+    "a": "A Tier",
+    "b": "B Tier",
+    "c": "C Tier",
+    "d": "D Tier",
+    "be-power": "BePower",
+    "unranked": "Nie piłem"
+  },
+  "Monsters": {
+    "1": {
+      "name": "Viking Berry"
+    },
+    "2": {
+      "name": "Oryginalny zielony"
+    },
+    "3": {
+      "name": "Nitro Super Dry"
+    },
+    "4": {
+      "name": "VR46, czyli The Doctor"
+    },
+    "5": {
+      "name": "Nitro Cosmic Peach"
+    },
+    "6": {
+      "name": "Monster Green Zero Cukru"
+    },
+    "7": {
+      "name": "Full Throttle Zero Sugar"
+    },
+    "8": {
+      "name": "Lando Norris Zero Sugar"
+    },
+    "9": {
+      "name": "VR46 Zero Sugar"
+    },
+    "10": {
+      "name": "Reserve Orange Dreamsicle"
+    },
+    "11": {
+      "name": "Reserve Peaches n’ Crème"
+    },
+    "12": {
+      "name": "Nitro Blue Flash"
+    },
+    "13": {
+      "name": "Ultra Paradise"
+    },
+    "14": {
+      "name": "Ultra, czyli Biały Monster"
+    },
+    "15": {
+      "name": "Ultra Violet, czyli Fioletowy Monster"
+    },
+    "16": {
+      "name": "Ultra Rosá"
+    },
+    "17": {
+      "name": "Ultra Peachy Keen"
+    },
+    "18": {
+      "name": "Ultra Strawberry Dreams"
+    },
+    "19": {
+      "name": "Ultra Black"
+    },
+    "20": {
+      "name": "Ultra Fantasy Ruby Red"
+    },
+    "21": {
+      "name": "Ultra Vice Guava"
+    },
+    "22": {
+      "name": "Ultra Fiesta Mango"
+    },
+    "23": {
+      "name": "Mango Loco"
+    },
+    "24": {
+      "name": "Pipeline Punch"
+    },
+    "25": {
+      "name": "Monarch"
+    },
+    "26": {
+      "name": "Aussie Style Lemonade"
+    },
+    "27": {
+      "name": "Bad Apple"
+    },
+    "28": {
+      "name": "Rio Punch"
+    },
+    "29": {
+      "name": "Tea + Lemonade"
+    },
+    "30": {
+      "name": "Peach Tea"
+    },
+    "31": {
+      "name": "Tea + Wild Berry"
+    }
+  }
+}

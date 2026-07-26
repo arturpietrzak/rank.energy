@@ -269,12 +269,12 @@ function ReadOnlyRow({
   monsters: MonsterConfig[];
 }) {
   return (
-    <div className="relative flex items-start gap-3 p-3 min-h-[88px] border border-border-subtle bg-bg-surface">
+    <div className="relative flex items-start gap-1.5 sm:gap-3 p-1.5 sm:p-3 min-h-0 sm:min-h-[88px] border border-border-subtle bg-bg-surface">
       <div className="absolute left-0 top-0 bottom-0 w-1 bg-border-default" />
-      <div className="flex-shrink-0 w-[100px] flex items-center pt-1 pl-1">
+      <div className="flex-shrink-0 w-[80px] sm:w-[100px] flex items-center pt-0.5 sm:pt-1 pl-0.5 sm:pl-1">
         <TierBadge slug={slug} />
       </div>
-      <div className="flex gap-1.5 flex-wrap flex-1">
+      <div className="flex gap-1 sm:gap-1.5 flex-wrap flex-1">
         {monsters.map((monster) => (
           <ReadOnlyImage key={monster.id} monster={monster} />
         ))}
@@ -289,7 +289,7 @@ function ReadOnlyImage({ monster }: { monster: MonsterConfig }) {
 
   return (
     <div className="relative group">
-      <div className="w-16 h-16 bg-bg-overlay border border-border-subtle flex-shrink-0 flex items-center justify-center overflow-hidden"
+      <div className="w-11 h-11 sm:w-16 sm:h-16 bg-bg-overlay border border-border-subtle flex-shrink-0 flex items-center justify-center overflow-hidden"
         style={{ clipPath: "polygon(3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%, 0 3px)" }}>
         {monster.image ? (
           <img
@@ -298,7 +298,7 @@ function ReadOnlyImage({ monster }: { monster: MonsterConfig }) {
             className="w-full h-full object-contain pointer-events-none"
           />
         ) : (
-          <span className="text-lg text-text-muted">?</span>
+          <span className="text-sm sm:text-lg text-text-muted">?</span>
         )}
       </div>
       {/* Tooltip */}

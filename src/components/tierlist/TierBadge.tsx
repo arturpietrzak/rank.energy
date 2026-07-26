@@ -24,7 +24,7 @@ export default function TierBadge({ slug }: Props) {
 
   return (
     <span
-      className={`inline-block px-3 py-1 text-xs font-bold uppercase tracking-wider ${style.bg} ${style.text}`}
+      className={`inline-block px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap ${style.bg} ${style.text}`}
       style={{
         clipPath: "polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)",
         boxShadow: `0 0 8px ${style.glow}`,

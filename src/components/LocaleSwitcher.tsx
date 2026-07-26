@@ -25,9 +25,10 @@ export default function LocaleSwitcher() {
             className={`
               text-xs px-2.5 py-1 font-bold uppercase tracking-wider
               transition-colors duration-200
-              ${isActive
-                ? "bg-accent text-black cursor-default pointer-events-none"
-                : "text-text-secondary border border-border-default bg-bg-surface hover:text-accent hover:border-accent/40"
+              ${
+                isActive
+                  ? "bg-accent text-black cursor-default pointer-events-none"
+                  : "text-text-secondary border border-border-default bg-bg-surface hover:text-accent hover:border-accent/40"
               }
             `}
             style={{

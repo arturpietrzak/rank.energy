@@ -13,6 +13,7 @@
     "share": "Udostępnij",
     "copied": "Link skopiowany!",
     "editList": "Edytuj listę",
+    "edit": "Edytuj",
     "didntDrink": "Nie piłem",
     "queueProgress": "{current} z {total}",
     "viewTiers": "Twój ranking",
@@ -20,6 +21,7 @@
     "dropHere": "Upuść tutaj",
     "loading": "Ładowanie",
     "resetAll": "Wyczyść wszystko",
+    "reset": "Wyczyść",
     "allRated": "Wszystko ocenione! 🎉",
     "reviewAgain": "Przejrzyj jeszcze raz"
   },

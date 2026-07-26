@@ -8,6 +8,8 @@
     "rankings": "Rankingi"
   },
   "TierList": {
+    "title": "Ranking",
+    "description": "Stwórz i udostępnij swój ranking Monster Energy. Przeciągaj i upuszczaj, aby ocenić swoje ulubione smaki.",
     "share": "Udostępnij",
     "copied": "Link skopiowany!",
     "editList": "Edytuj listę",
@@ -30,6 +32,16 @@
     "d": "D Tier",
     "be-power": "BePower",
     "unranked": "Nie piłem"
+  },
+  "Error": {
+    "title": "Błąd systemu",
+    "description": "Wystąpił nieoczekiwany błąd. Został on zarejestrowany — spróbuj ponownie.",
+    "retry": "Spróbuj ponownie"
+  },
+  "NotFound": {
+    "title": "404",
+    "description": "Ta strona nie istnieje. Energia, której szukasz, jest gdzie indziej.",
+    "returnHome": "Powrót"
   },
   "Monsters": {
     "1": {

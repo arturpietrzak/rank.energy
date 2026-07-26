@@ -8,6 +8,8 @@
     "rankings": "Rankings"
   },
   "TierList": {
+    "title": "Tier List",
+    "description": "Create and share your Monster Energy tier list. Drag and drop to rank your favorite flavors.",
     "share": "Share Link",
     "copied": "Link copied!",
     "editList": "Edit this list",
@@ -30,6 +32,16 @@
     "d": "D Tier",
     "be-power": "BePower",
     "unranked": "Didn't Drink"
+  },
+  "Error": {
+    "title": "System Failure",
+    "description": "An unexpected error occurred. This has been logged — please try again.",
+    "retry": "Retry"
+  },
+  "NotFound": {
+    "title": "404",
+    "description": "This page doesn't exist. The energy you're looking for is elsewhere.",
+    "returnHome": "Return Home"
   },
   "Monsters": {
     "1": {

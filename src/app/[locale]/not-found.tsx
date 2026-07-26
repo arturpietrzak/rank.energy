@@ -1,6 +1,11 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 
 export default function NotFound() {
+  const t = useTranslations("NotFound");
+
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-bg-base p-8">
       <main className="flex flex-col items-center gap-8 text-center max-w-md animate-fade-in">
@@ -12,12 +17,12 @@ export default function NotFound() {
             <span className="w-6 h-px bg-accent/50 inline-block align-middle ml-2" />
           </div>
           <h1 className="font-display text-7xl text-accent glow-text">
-            404
+            {t("title")}
           </h1>
         </div>
 
         <p className="text-lg text-text-secondary max-w-sm leading-relaxed">
-          This page doesn&apos;t exist. The energy you&apos;re looking for is elsewhere.
+          {t("description")}
         </p>
 
         <Link
@@ -25,7 +30,7 @@ export default function NotFound() {
           className="px-8 py-3 text-sm font-bold text-black uppercase tracking-wider bg-accent hover:bg-accent-dim transition-colors duration-200"
           style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
         >
-          Return Home
+          {t("returnHome")}
         </Link>
       </main>
     </div>

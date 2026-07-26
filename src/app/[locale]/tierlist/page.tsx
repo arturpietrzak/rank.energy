@@ -1,8 +1,19 @@
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import type { MonsterConfig } from "@/types";
 import monstersData from "@/../config/monsters.json";
 import TierListPage from "@/components/tierlist/TierListPage";
 
 const monsters: MonsterConfig[] = monstersData.monsters;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("TierList");
+
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
 export default async function TierListPageServer({
   searchParams,

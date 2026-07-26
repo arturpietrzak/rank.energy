@@ -17,7 +17,6 @@ import { useDroppable } from "@dnd-kit/core";
 import {
   SortableContext,
   horizontalListSortingStrategy,
-  arrayMove,
 } from "@dnd-kit/sortable";
 import { useTranslations } from "next-intl";
 import type { MonsterConfig, TierState, TierSlug } from "@/types";
@@ -54,7 +53,6 @@ export default function DesktopTierList({
   onMoveMonster,
   readOnly = false,
 }: Props) {
-  /* ---- Read-only render ---- */
   if (readOnly) {
     return (
       <div className="flex flex-col gap-2 overflow-y-auto flex-1">
@@ -75,7 +73,22 @@ export default function DesktopTierList({
     );
   }
 
-  /* ---- Editable DnD render ---- */
+  return (
+    <EditableDesktopTierList
+      tiers={tiers}
+      monsters={monsters}
+      onMoveMonster={onMoveMonster}
+    />
+  );
+}
+
+/* ---- Editable DnD render ---- */
+
+function EditableDesktopTierList({
+  tiers,
+  monsters,
+  onMoveMonster,
+}: Omit<Props, "readOnly">) {
   const [activeId, setActiveId] = useState<number | null>(null);
 
   const sensors = useSensors(

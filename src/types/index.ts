@@ -1,7 +1,6 @@
 export interface MonsterConfig {
   id: number;
   image: string;
-  imageDetail?: string;
 }
 
 export type TierSlug =

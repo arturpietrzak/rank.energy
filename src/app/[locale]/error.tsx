@@ -1,14 +1,17 @@
 "use client";
 
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 export default function Error({
   error,
-  unstable_retry,
+  reset,
 }: {
   error: Error & { digest?: string };
-  unstable_retry: () => void;
+  reset: () => void;
 }) {
+  const t = useTranslations("Error");
+
   useEffect(() => {
     console.error(error);
   }, [error]);
@@ -24,19 +27,19 @@ export default function Error({
         </div>
 
         <h1 className="text-2xl font-display text-text-primary uppercase tracking-wider">
-          System Failure
+          {t("title")}
         </h1>
 
         <p className="text-text-secondary leading-relaxed">
-          An unexpected error occurred. This has been logged — please try again.
+          {t("description")}
         </p>
 
         <button
-          onClick={unstable_retry}
+          onClick={reset}
           className="px-8 py-3 text-sm font-bold text-black uppercase tracking-wider bg-accent hover:bg-accent-dim transition-colors duration-200"
           style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
         >
-          Retry
+          {t("retry")}
         </button>
       </main>
     </div>
